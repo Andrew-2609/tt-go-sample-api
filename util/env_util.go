@@ -18,6 +18,29 @@ func GetEnv() string {
 	return strings.ToLower(env)
 }
 
+// IsLocalEnv checks if the application is running
+// locally.
+func IsLocalEnv() bool {
+	if env := GetEnv(); env == "local" || env == "" {
+		return true
+	}
+
+	return false
+}
+
+// IsTestEnv checks if the application is running
+// on testing mode.
+func IsTestEnv() bool {
+	return GetEnv() == "test"
+}
+
+// IsProductionEnv checks if the application is running
+// on production mode, that is, the environment is
+// neither local nor test.
+func IsProductionEnv() bool {
+	return !IsLocalEnv() && !IsTestEnv()
+}
+
 // GetAPIVersion returns the API Version from the
 // API_VERSION environment variable.
 //
