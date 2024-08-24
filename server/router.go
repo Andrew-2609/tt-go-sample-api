@@ -27,7 +27,7 @@ func setupRoutes(ws *webserver.WebServer) {
 // setupBaseRoutes sets up routes that are available at
 // the base path of the application (e.g. `/health`).
 func setupBaseRoutes(ws *webserver.WebServer) {
-	// Check API Health
+	// Check API Health (may be used by Kubernetes).
 	ws.Engine.Get("/health", func(ctx *fiber.Ctx) error {
 		ctx.Status(http.StatusOK)
 		return nil
