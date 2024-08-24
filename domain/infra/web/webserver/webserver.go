@@ -3,7 +3,7 @@ package webserver
 import (
 	"context"
 	"fmt"
-	"log"
+	"tt-go-sample-api/pkg/logger"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -51,9 +51,14 @@ func NewWebServer(engine WebServerEngine, port string) *WebServer {
 //
 // This method will block its routine!
 func (ws *WebServer) Start(ctx context.Context) {
-	fmt.Printf("Server running at port %s. API Version: %s", ws.Port, "1.0.0")
+	logger.APILoggerSingleton.Info(ctx, logger.LogInput{
+		Message: fmt.Sprintf("Server running at port %s. API Version: %s", ws.Port, "1.0.0"),
+	})
 
 	if err := ws.Engine.Listen(fmt.Sprintf(":%s", ws.Port)); err != nil {
-		log.Fatalf("could not initialize web server: %v", err)
+		logger.APILoggerSingleton.Fatal(ctx, logger.LogInput{
+			Message: "Could not initialize WebServer",
+			Data:    map[string]any{"error": fmt.Sprintf("%v", err)},
+		})
 	}
 }
