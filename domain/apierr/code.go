@@ -33,4 +33,9 @@ const (
 	// the application can't list employees because of an
 	// SQL error.
 	CodeSQLListEmployeesFailedErrorCode ServerErrorCode = "TTSQLERR001"
+
+	// CodeSQLRegisterEmployeeFailedErrorCode is used whenever
+	// the application can't register an employee because of
+	// an SQL error.
+	CodeSQLRegisterEmployeeFailedErrorCode ServerErrorCode = "TTSQLERR002"
 )
