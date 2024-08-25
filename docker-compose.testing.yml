@@ -5,7 +5,7 @@ services:
     image: postgres:13.4-alpine
     container_name: tt_db_test
     environment:
-      POSTGRES_DB: db_name
+      POSTGRES_DB: db_name_test
       POSTGRES_USER: ndrew
       POSTGRES_PASSWORD: db_pass
     ports:
