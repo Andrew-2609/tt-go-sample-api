@@ -49,9 +49,20 @@ func (cfg *APIConfig) GetPostgreSQLSource() string {
 		cfg.DBName,
 	)
 
-	if cfg.Environment == "local" {
+	if !cfg.IsRunningOnProduction() {
 		dbSource += "?sslmode=disable"
 	}
 
 	return dbSource
+}
+
+// IsRunningOnProduction checks if the application is running
+// on production mode (i.e., not locally nor on test environment).
+func (cfg *APIConfig) IsRunningOnProduction() bool {
+	switch cfg.Environment {
+	case "local", "test":
+		return false
+	default:
+		return true
+	}
 }
