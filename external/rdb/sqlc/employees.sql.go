@@ -11,10 +11,17 @@ import (
 
 const listEmployees = `-- name: ListEmployees :many
 SELECT id, "publicId", name, "createdAt", "updatedAt" FROM employees
+ORDER BY id
+LIMIT $1 OFFSET $2
 `
 
-func (q *Queries) ListEmployees(ctx context.Context) ([]Employee, error) {
-	rows, err := q.db.QueryContext(ctx, listEmployees)
+type ListEmployeesParams struct {
+	Limit  int32 `json:"limit"`
+	Offset int32 `json:"offset"`
+}
+
+func (q *Queries) ListEmployees(ctx context.Context, arg ListEmployeesParams) ([]Employee, error) {
+	rows, err := q.db.QueryContext(ctx, listEmployees, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
