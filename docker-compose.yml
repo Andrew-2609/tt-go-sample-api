@@ -1,6 +1,18 @@
 version: '3.9'
 
 services:
+  api:
+    container_name: tt-go-sample-api
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    ports:
+      - "3000:3000"
+    command: [ "/app/main" ]
+    depends_on:
+      database:
+        condition: service_healthy
+
   database:
     image: postgres:13.4-alpine
     container_name: tt_db
@@ -11,4 +23,10 @@ services:
       POSTGRES_USER: ndrew
       POSTGRES_PASSWORD: db_pass
     ports:
-      - 5432:5432
+      - "5432:5432"
+    healthcheck:  
+      test: ["CMD-SHELL", "pg_isready", "-d", "db_name"]
+      interval: 3s
+      timeout: 60s
+      retries: 5
+      start_period: 10s  
