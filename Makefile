@@ -29,6 +29,12 @@ test-unit:
 test-unit-v:
 	go clean -testcache && ENV=test go test -v -short ./...
 
+test-integration:
+	go clean -testcache && ENV=test go test -p 1 ./... -run Integration
+
+test-integration-v:
+	go clean -testcache && ENV=test go test -v -p 1 ./... -run Integration
+
 .PHONY: test-unit test-unit-v
 
 # Mocking

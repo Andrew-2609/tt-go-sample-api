@@ -74,7 +74,7 @@ func (suite *GetEmployeesPostgreSQLRepositoryTestSuite) TestListEmployees() {
 	}
 }
 
-func TestGetEmployeesPostgreSQLRepositoryTestSuite(t *testing.T) {
+func TestGetEmployeesPostgreSQLRepositoryTestSuiteIntegration(t *testing.T) {
 	test.SkipTestIfShortFlagWasPassed(t)
 	suite.Run(t, new(GetEmployeesPostgreSQLRepositoryTestSuite))
 }
