@@ -12,7 +12,8 @@ import (
 )
 
 var (
-	apiApp *fiber.App
+	apiApp                 *fiber.App
+	apiConfigTestSingleton *config.APIConfig
 )
 
 func setupRouter(t *testing.T, ctx context.Context) {
@@ -28,6 +29,7 @@ func setupRouter(t *testing.T, ctx context.Context) {
 	}
 
 	apiApp = fiberApp
+	apiConfigTestSingleton = apiConfig
 }
 
 func TestMain(m *testing.M) {
