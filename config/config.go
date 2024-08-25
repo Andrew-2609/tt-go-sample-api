@@ -33,6 +33,8 @@ func LoadAPIConfigBasedOnEnvironment(ctx context.Context) (*APIConfig, error) {
 		return NewLocalConfig(util.GetEnvFilepathBasedOnEnvironment()).LoadConfig(ctx)
 	}
 
+	// Implement logic to load configuration from Cloud (e.g. AWS Secrets Manager)
+
 	return nil, fmt.Errorf("no configuration set for given environment (%s)", util.GetEnv())
 }
 
