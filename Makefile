@@ -1,9 +1,6 @@
 # Running
 
 run:
-	go run main.go
-
-run-docker:
 	docker compose up --build -d --remove-orphans && docker logs -f tt-go-sample-api
 
 .PHONY: run
