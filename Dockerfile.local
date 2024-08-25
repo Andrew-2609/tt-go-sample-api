@@ -1,0 +1,29 @@
+# BUILD STAGE
+FROM golang:1.22-alpine AS build
+
+RUN apk update && apk add --no-cache ca-certificates procps openssl tzdata
+
+WORKDIR /app
+COPY . .
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-w -s" -o main main.go
+
+# Setup non-root user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+# RUN STAGE
+FROM scratch
+
+# Utilize non-root user
+COPY --from=build /etc/passwd /etc/passwd
+USER appuser
+
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+
+WORKDIR /app
+COPY --from=build /app/main .
+COPY --from=build /app/external/rdb/migration ./external/rdb/migration
+COPY --from=build /app/.env* .
+COPY --from=build /app/VERSION .
+
+EXPOSE 3000
+EXPOSE 9000
