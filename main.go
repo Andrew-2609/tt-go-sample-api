@@ -18,11 +18,12 @@ func main() {
 	discoverAPIVersion(mainCtx)
 
 	config := setupConfig(mainCtx)
-	setupRelationalDatabaseConnection(mainCtx, config)
+	store := setupRelationalDatabaseConnection(mainCtx, config)
+	db.SQLStoreSingleton = store
 
 	logger.APILoggerSingleton = logger.NewWithLogrus("tt-go-sample-api")
 
-	app := server.NewApp()
+	app := server.NewApp(config.WebServerPort)
 
 	go app.Start(mainCtx)
 

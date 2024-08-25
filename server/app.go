@@ -8,8 +8,8 @@ import (
 
 // NewApp returns a pointer to webserver.WebServer,
 // which can be used to perform HTTPs calls.
-func NewApp() *webserver.WebServer {
-	ws := webserver.NewWebServer(fiber.New(), "3000")
+func NewApp(port string) *webserver.WebServer {
+	ws := webserver.NewWebServer(fiber.New(), port)
 
 	setupRoutes(ws)
 
