@@ -32,6 +32,8 @@ test-unit:
 test-unit-v:
 	go clean -testcache && ENV=test go test -v -short ./...
 
+# ⚠️ Integrations Tests will likely only work in a dockerized environment ⚠️
+
 test-integration:
 	go clean -testcache && ENV=test go test -p 1 ./... -run Integration
 
