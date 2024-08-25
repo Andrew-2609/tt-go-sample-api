@@ -6,7 +6,6 @@ import (
 	"tt-go-sample-api/domain/usecase"
 	"tt-go-sample-api/domain/usecase/dto"
 	"tt-go-sample-api/pkg/apivalidator"
-	"tt-go-sample-api/pkg/logger"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -29,20 +28,11 @@ func (h *RegisterEmployeeWebHandler) Handle(ctx *fiber.Ctx) error {
 	var inputDTO dto.RegisterEmployeeInputDTO
 
 	if err := ctx.BodyParser(&inputDTO); err != nil {
-		logger.APILoggerSingleton.Warn(ctx.Context(), logger.LogInput{
-			Message: "Request validation error",
-			Data:    map[string]any{"validationError": fmt.Sprintf("%v", err)},
-		})
-
-		return ctx.
-			Status(http.StatusBadRequest).
-			JSON(map[string]any{"error": "fields validation error"})
+		return handleRequestValidationError(ctx, err)
 	}
 
 	if err := apivalidator.APIValidatorSingleton.Validate(ctx.Context(), inputDTO); err != nil {
-		return ctx.
-			Status(http.StatusBadRequest).
-			JSON(map[string]any{"error": err.Error()})
+		return handleRequestValidationError(ctx, err)
 	}
 
 	outputDTO, err := h.registerEmployeeUseCase.Execute(ctx.Context(), inputDTO)
