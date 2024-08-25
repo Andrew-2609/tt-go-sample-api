@@ -1,6 +1,9 @@
 package entity
 
-import "time"
+import (
+	"strings"
+	"time"
+)
 
 // Employee represents an employee of TT.
 //
@@ -14,4 +17,15 @@ type Employee struct {
 	Name      string
 	CreatedAt time.Time
 	UpdatedAt time.Time
+}
+
+// NewEmployee returns a pointer of Employee
+// with the given name.
+//
+// The returned employee will always have the
+// first letter of his name uppercased.
+func NewEmployee(name string) *Employee {
+	return &Employee{
+		Name: strings.ToUpper(string(name[0])) + name[1:],
+	}
 }
