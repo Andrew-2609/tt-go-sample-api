@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"tt-go-sample-api/domain/apierr"
 	"tt-go-sample-api/domain/entity"
 	db "tt-go-sample-api/external/rdb/sqlc"
 )
@@ -31,7 +32,7 @@ func (r *GetEmployeesPostgreSQLRepository) ListEmployees(ctx context.Context, pa
 	})
 
 	if err != nil {
-		return nil, err
+		return nil, apierr.NewInternalServerError(apierr.CodeSQLListEmployeesFailedErrorCode)
 	}
 
 	employeeEntities := make([]*entity.Employee, 0, len(employees))

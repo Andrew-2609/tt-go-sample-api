@@ -28,4 +28,9 @@ const (
 	// CodeUnknownServerError is used whenever the application
 	// returns an unexpected and unknown error.
 	CodeUnknownServerError ServerErrorCode = "TTINTERR"
+
+	// CodeSQLListEmployeesFailedErrorCode is used whenever
+	// the application can't list employees because of an
+	// SQL error.
+	CodeSQLListEmployeesFailedErrorCode ServerErrorCode = "TTSQLERR001"
 )
