@@ -52,7 +52,7 @@ func (suite *GetEmployeesPostgreSQLRepositoryTestSuite) TestListEmployees() {
 			page:  1,
 			limit: 20,
 			setup: func(t *testing.T) {
-				employeeName := "Andrew"
+				employeeName := "Andrew Silva"
 				createdEmployee := test.PersistFakeEmployee(t, db.SQLStoreSingleton.GetDB(), employeeName)
 				require.NotZero(t, createdEmployee.ID)
 				require.Equal(t, employeeName, createdEmployee.Name)
@@ -60,7 +60,7 @@ func (suite *GetEmployeesPostgreSQLRepositoryTestSuite) TestListEmployees() {
 			validate: func(t *testing.T, employees []*entity.Employee, err error) {
 				require.NoError(suite.T(), err)
 				require.Len(suite.T(), employees, 1)
-				require.Equal(t, "Andrew", employees[0].Name)
+				require.Equal(t, "Andrew Silva", employees[0].Name)
 			},
 		},
 	}

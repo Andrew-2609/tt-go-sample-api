@@ -46,7 +46,7 @@ func TestRegisterEmployeeUseCase_Execute(t *testing.T) {
 				ctx := context.Background()
 
 				input := dto.RegisterEmployeeInputDTO{
-					Name: "andrew",
+					Name: "Andrew Silva",
 				}
 
 				fakeError := apierr.NewInternalServerError(apierr.CodeUnknownServerError)
