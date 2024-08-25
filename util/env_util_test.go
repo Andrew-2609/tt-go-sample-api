@@ -150,6 +150,44 @@ func TestIsProductionEnv(t *testing.T) {
 	}
 }
 
+func TestGetEnvFilepathBasedOnEnvironment(t *testing.T) {
+	testCases := map[string]struct {
+		env            string
+		validateResult func(t *testing.T, envFilepath string)
+	}{
+		"Test": {
+			env: "test",
+			validateResult: func(t *testing.T, envFilepath string) {
+				require.Equal(t, ".env.test", envFilepath)
+			},
+		},
+		"Local": {
+			env: "local",
+			validateResult: func(t *testing.T, envFilepath string) {
+				require.Equal(t, ".env", envFilepath)
+			},
+		},
+		"Anything Else": {
+			env: "production",
+			validateResult: func(t *testing.T, envFilepath string) {
+				require.Equal(t, ".env", envFilepath)
+			},
+		},
+	}
+
+	for scenario, testCase := range testCases {
+		t.Run(scenario, func(t *testing.T) {
+			require.NoError(t, os.Setenv("ENV", testCase.env))
+
+			testCase.validateResult(t, GetEnvFilepathBasedOnEnvironment())
+
+			require.NoError(t, os.Unsetenv("ENV"))
+		})
+
+		require.NoError(t, os.Setenv("ENV", "test"))
+	}
+}
+
 func TestGetAPIVersion(t *testing.T) {
 	testCases := map[string]struct {
 		apiVersion     string
