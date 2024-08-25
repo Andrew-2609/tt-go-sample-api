@@ -47,6 +47,7 @@ test-v: test-unit-v test-integration-v
 coverage:
 	@docker compose --env-file .env.test -f docker-compose.testing.yml up -d --build --remove-orphans
 	@docker exec test-runner ./test_coverage_runner.sh
+	@docker compose -f docker-compose.testing.yml down
 	
 coverage-html: coverage
 	go tool cover -html=tmp/coverage.out -o tmp/coverage.html
