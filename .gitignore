@@ -1,2 +1,5 @@
 # Environment Files
 .env
+
+# Temporary files
+tmp/
