@@ -10,6 +10,7 @@ import (
 
 type Querier interface {
 	ListEmployees(ctx context.Context, arg ListEmployeesParams) ([]Employee, error)
+	RegisterEmployee(ctx context.Context, name string) (Employee, error)
 }
 
 var _ Querier = (*Queries)(nil)

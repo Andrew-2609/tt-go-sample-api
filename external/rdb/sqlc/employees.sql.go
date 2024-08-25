@@ -48,3 +48,22 @@ func (q *Queries) ListEmployees(ctx context.Context, arg ListEmployeesParams) ([
 	}
 	return items, nil
 }
+
+const registerEmployee = `-- name: RegisterEmployee :one
+INSERT INTO employees ("name")
+VALUES ($1)
+RETURNING id, "publicId", name, "createdAt", "updatedAt"
+`
+
+func (q *Queries) RegisterEmployee(ctx context.Context, name string) (Employee, error) {
+	row := q.db.QueryRowContext(ctx, registerEmployee, name)
+	var i Employee
+	err := row.Scan(
+		&i.ID,
+		&i.PublicId,
+		&i.Name,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
