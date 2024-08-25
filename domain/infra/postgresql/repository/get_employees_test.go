@@ -17,7 +17,7 @@ type GetEmployeesPostgreSQLRepositoryTestSuite struct {
 }
 
 func (suite *GetEmployeesPostgreSQLRepositoryTestSuite) SetupSuite() {
-	test.SetupTestsPostgreSQL(suite.T(), apiConfigTestSingleton.DBName)
+	test.SetupTestsPostgreSQL(suite.T(), apiConfigTestSingleton.GetPostgreSQLSource(), apiConfigTestSingleton.DBName)
 	test.TruncateTables(suite.T(), db.SQLStoreSingleton.GetDB())
 }
 
@@ -26,7 +26,7 @@ func (suite *GetEmployeesPostgreSQLRepositoryTestSuite) TearDownSubTest() {
 }
 
 func (suite *GetEmployeesPostgreSQLRepositoryTestSuite) TearDownSuite() {
-	require.NoError(suite.T(), db.SQLStoreSingleton.GetDB().Close())
+	require.NoError(suite.T(), db.SQLStoreSingleton.CloseDB())
 }
 
 func (suite *GetEmployeesPostgreSQLRepositoryTestSuite) TestListEmployees() {

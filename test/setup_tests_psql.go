@@ -4,6 +4,7 @@ import (
 	"context"
 	"testing"
 	"tt-go-sample-api/external/rdb"
+	"tt-go-sample-api/external/rdb/postgresql"
 	db "tt-go-sample-api/external/rdb/sqlc"
 
 	"github.com/golang-migrate/migrate/v4"
@@ -13,7 +14,12 @@ import (
 
 // SetupTestsPostgreSQL sets up the PostgreSQL connection
 // and run the database migrations.
-func SetupTestsPostgreSQL(t *testing.T, dbName string) {
+func SetupTestsPostgreSQL(t *testing.T, dbSource, dbName string) {
+	store, err := postgresql.NewPostgreSQLConnection(dbSource)
+	require.NoError(t, err)
+
+	db.SQLStoreSingleton = store
+
 	dbDriver, err := postgres.WithInstance(db.SQLStoreSingleton.GetDB(), &postgres.Config{})
 	require.NoError(t, err)
 
