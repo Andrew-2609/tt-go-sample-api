@@ -30,3 +30,10 @@ test-unit-v:
 	go clean -testcache && ENV=test go test -v -short ./...
 
 .PHONY: test-unit test-unit-v
+
+# Mocking
+
+update-mocks:
+	@mockgen -source=./domain/entity/employee_contract.go -destination=./mock/employee_contract_mock.go -package=mock
+
+.PHONY: update-mocks
