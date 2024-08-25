@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 	"tt-go-sample-api/domain/usecase"
 	"tt-go-sample-api/domain/usecase/dto"
@@ -38,9 +37,7 @@ func (h *RegisterEmployeeWebHandler) Handle(ctx *fiber.Ctx) error {
 	outputDTO, err := h.registerEmployeeUseCase.Execute(ctx.Context(), inputDTO)
 
 	if err != nil {
-		return ctx.Status(http.StatusInternalServerError).JSON(map[string]any{
-			"error": fmt.Sprintf("could not list employees: %v", err),
-		})
+		return handleError(ctx, err)
 	}
 
 	return ctx.Status(http.StatusCreated).JSON(outputDTO)
