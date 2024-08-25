@@ -23,6 +23,9 @@ migrate-down:
 
 # Testing
 
+up-test:
+	docker compose --env-file .env.test -f docker-compose.testing.yml up -d --build --remove-orphans
+
 test-unit:
 	go clean -testcache && ENV=test go test -short ./...
 
@@ -35,7 +38,19 @@ test-integration:
 test-integration-v:
 	go clean -testcache && ENV=test go test -v -p 1 ./... -run Integration
 
-.PHONY: test-unit test-unit-v
+test: test-unit test-integration
+
+test-v: test-unit-v test-integration-v
+
+coverage:
+	@docker compose --env-file .env.test -f docker-compose.testing.yml up -d --build --remove-orphans
+	@docker exec test-runner ./test_coverage_runner.sh
+	
+coverage-html: coverage
+	go tool cover -html=tmp/coverage.out -o tmp/coverage.html
+	xdg-open tmp/coverage.html
+
+.PHONY: up-test test-unit test-unit-v test-integration test-integration-v test test-v coverage coverage-html
 
 # Mocking
 
