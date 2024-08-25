@@ -41,6 +41,20 @@ func IsProductionEnv() bool {
 	return !IsLocalEnv() && !IsTestEnv()
 }
 
+// GetEnvFilepathBasedOnEnvironment returns the
+// filepath of the env file, which can vary
+// depending on the environment.
+//
+//   - When running locally, it'll point to ".env".
+//   - When running during tests, it'll point to ".env.test"
+func GetEnvFilepathBasedOnEnvironment() string {
+	if IsTestEnv() {
+		return ".env.test"
+	}
+
+	return ".env"
+}
+
 // GetAPIVersion returns the API Version from the
 // API_VERSION environment variable.
 //

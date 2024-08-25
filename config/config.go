@@ -30,7 +30,7 @@ type APIConfig struct {
 // AWS Secrets Manager).
 func LoadAPIConfigBasedOnEnvironment(ctx context.Context) (*APIConfig, error) {
 	if !util.IsProductionEnv() {
-		return NewLocalConfig(".env").LoadConfig(ctx)
+		return NewLocalConfig(util.GetEnvFilepathBasedOnEnvironment()).LoadConfig(ctx)
 	}
 
 	return nil, fmt.Errorf("no configuration set for given environment (%s)", util.GetEnv())
