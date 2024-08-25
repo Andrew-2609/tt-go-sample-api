@@ -12,3 +12,11 @@ type ListEmployeesUseCaseInterface interface {
 	// based on an input DTO.
 	Execute(ctx context.Context, input dto.ListEmployeesInputDTO) (dto.ListEmployeesOutputDTO, error)
 }
+
+// RegisterEmployeeUseCaseInterface is responsible for
+// registering employees.
+type RegisterEmployeeUseCaseInterface interface {
+	// Execute tries to register an employee based on an input
+	// DTO.
+	Execute(ctx context.Context, input dto.RegisterEmployeeInputDTO) (dto.RegisterEmployeeOutputDTO, error)
+}
