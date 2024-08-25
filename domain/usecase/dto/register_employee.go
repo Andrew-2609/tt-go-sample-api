@@ -6,7 +6,7 @@ import "time"
 // necessary attributes to register an
 // employee.
 type RegisterEmployeeInputDTO struct {
-	Name string `json:"name"`
+	Name string `json:"name" validate:"notblank,min=2,max=70"`
 }
 
 // RegisterEmployeeOutputDTO represents the
