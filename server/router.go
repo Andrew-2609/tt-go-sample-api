@@ -2,7 +2,10 @@ package server
 
 import (
 	"net/http"
+	"tt-go-sample-api/domain/infra/postgresql/repository"
+	"tt-go-sample-api/domain/infra/web/handler"
 	"tt-go-sample-api/domain/infra/web/webserver"
+	"tt-go-sample-api/domain/usecase"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -39,8 +42,9 @@ func setupBaseRoutes(ws *webserver.WebServer) {
 func setupEmployeeManagementRoutes(router fiber.Router) {
 	employeesGroup := router.Group("/employees")
 
+	getEmployeesRepository := repository.NewGetEmployeesPostgreSQLRepository()
+	listEmployeesUseCase := usecase.NewListEmployeesUseCase(getEmployeesRepository)
+
 	// List Employees
-	employeesGroup.Get("/", func(ctx *fiber.Ctx) error {
-		return ctx.Status(http.StatusOK).JSON([]struct{}{})
-	})
+	employeesGroup.Get("/", handler.NewListEmployeesWebHandler(listEmployeesUseCase).Handle)
 }
