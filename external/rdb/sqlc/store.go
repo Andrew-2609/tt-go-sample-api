@@ -1,12 +1,15 @@
 package db
 
-import "database/sql"
+import (
+	"database/sql"
+)
 
 // Store defines a database Store, capable of performing
 // operations in a database.
 type Store interface {
 	Querier
 	GetDB() *sql.DB
+	CloseDB() error
 }
 
 // SQLStore is a database relational database Store.
@@ -27,4 +30,10 @@ func NewSQLStore(db *sql.DB) *SQLStore {
 // database handle.
 func (s *SQLStore) GetDB() *sql.DB {
 	return s.db
+}
+
+// CloseDB closes the inner SQLStore's relational
+// database connection.
+func (s *SQLStore) CloseDB() error {
+	return s.db.Close()
 }
