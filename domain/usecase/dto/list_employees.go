@@ -6,8 +6,8 @@ import "time"
 // required parameters in order to retrieve
 // a list of employees.
 type ListEmployeesInputDTO struct {
-	Page  int32 `json:"page" validate:"required,min=1"`
-	Limit int32 `json:"limit" validate:"omitempty,min=1,max=100"`
+	Page  *int32 `json:"page" validate:"notblank,min=1"`
+	Limit *int32 `json:"limit" validate:"omitempty,min=1,max=100"`
 }
 
 // ListEmployeesOutputDTO represents the

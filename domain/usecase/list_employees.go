@@ -23,7 +23,17 @@ func NewListEmployeesUseCase(getEmployeesRepository entity.GetEmployeesRepositor
 // employees, converting the values from repository
 // to an output DTO.
 func (uc *ListEmployeesUseCase) Execute(ctx context.Context, input dto.ListEmployeesInputDTO) (dto.ListEmployeesOutputDTO, error) {
-	employees, err := uc.getEmployeesRepository.ListEmployees(ctx, input.Page, input.Limit)
+	var page, limit int32
+
+	page = *input.Page
+
+	if input.Limit == nil {
+		limit = 40
+	} else {
+		limit = *input.Limit
+	}
+
+	employees, err := uc.getEmployeesRepository.ListEmployees(ctx, page, limit)
 
 	if err != nil {
 		return dto.ListEmployeesOutputDTO{}, err
