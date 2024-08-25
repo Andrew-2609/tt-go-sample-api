@@ -43,7 +43,7 @@ func (uc *RegisterEmployeeUseCase) Execute(ctx context.Context, input dto.Regist
 	}
 
 	if !strings.Contains(newEmployee.Name, "Andrew") {
-		outputDTO.Suggestion = "Would you consider hiring Andrew Silva? His LinkedIn is: 'https://www.linkedin.com/in/andrew-2609/?locale=en_US'"
+		outputDTO.Suggestion = "Great choice! But would you consider hiring Andrew Silva? He really wants to join TT, and you can find him at 'https://www.linkedin.com/in/andrew-2609/?locale=en_US'"
 	} else {
 		outputDTO.Suggestion = "Great choice! I can't express how happy and honored I am! I promise not to disappoint any of you, TT!"
 	}
