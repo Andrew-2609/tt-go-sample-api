@@ -20,3 +20,13 @@ migrate-down:
 	migrate -path external/rdb/migration -database "postgresql://ndrew:db_pass@localhost:5432/db_name?sslmode=disable" -verbose down $(n)
 
 .PHONY: sqlc create-migration migrate-up migrate-down
+
+# Testing
+
+test-unit:
+	go clean -testcache && ENV=test go test -short ./...
+
+test-unit-v:
+	go clean -testcache && ENV=test go test -v -short ./...
+
+.PHONY: test-unit test-unit-v
