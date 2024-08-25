@@ -45,16 +45,5 @@ func (v *APIValidator) loadCustomValidations(ctx context.Context) {
 // Validate implements the ValidatorInterface, and takes a context and any
 // data as its parameters.
 func (v *APIValidator) Validate(ctx context.Context, data interface{}) error {
-	err := v.validator.Struct(data)
-
-	if err != nil {
-		logger.APILoggerSingleton.Warn(ctx, logger.LogInput{
-			Message: "Request fields validation error",
-			Data:    map[string]any{"validationError": fmt.Sprintf("%v", err)},
-		})
-
-		return fmt.Errorf("error in fields validation, please make the necessary adjustments and try again")
-	}
-
-	return nil
+	return v.validator.Struct(data)
 }
