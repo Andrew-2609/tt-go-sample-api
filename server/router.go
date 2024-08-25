@@ -42,9 +42,15 @@ func setupBaseRoutes(ws *webserver.WebServer) {
 func setupEmployeeManagementRoutes(router fiber.Router) {
 	employeesGroup := router.Group("/employees")
 
+	// List Employees
 	getEmployeesRepository := repository.NewGetEmployeesPostgreSQLRepository()
 	listEmployeesUseCase := usecase.NewListEmployeesUseCase(getEmployeesRepository)
 
-	// List Employees
 	employeesGroup.Get("/", handler.NewListEmployeesWebHandler(listEmployeesUseCase).Handle)
+
+	// Register Employees
+	writeEmployeeRepository := repository.NewWriteEmployeePostgreSQLRepository()
+	registerEmployeeUseCase := usecase.NewRegisterEmployeeUseCase(writeEmployeeRepository)
+
+	employeesGroup.Post("/", handler.NewRegisterEmployeeWebHandler(registerEmployeeUseCase).Handle)
 }
