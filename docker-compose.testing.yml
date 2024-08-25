@@ -1,6 +1,35 @@
 version: '3.9'
 
 services:
+  api-test:
+    container_name: tt_go_sample_api_test
+    env_file:
+      - .env.test
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    ports:
+      - "9000:9000"
+    command: [ "/app/main" ]
+    depends_on:
+      database-test:
+        condition: service_healthy
+
+  test-runner:
+    image: golang:1.22-alpine
+    container_name: test-runner
+    env_file:
+      - .env.test
+    volumes:
+      - .:/home/app
+    working_dir: /home/app
+    command: ["tail", "-F", "anything"]
+    depends_on:
+      api-test:
+        condition: service_started
+      database-test:
+        condition: service_healthy
+
   database-test:
     image: postgres:13.4-alpine
     container_name: tt_db_test
@@ -10,3 +39,9 @@ services:
       POSTGRES_PASSWORD: db_pass
     ports:
       - 5432:5432
+    healthcheck:  
+      test: ["CMD-SHELL", "pg_isready", "-d", "db_name_test"]
+      interval: 3s
+      timeout: 60s
+      retries: 5
+      start_period: 10s  
