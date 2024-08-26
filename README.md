@@ -10,7 +10,7 @@ I've implemented unit and integration tests that cover most of the API, except t
 
 This project is **directly related** to the [TT TypeScript Sample API](https://github.com/Andrew-2609/tt-ts-sample-api), mainly because of the AWS SQS queue that they share.
 
-These two projects have a `docker-compose.yml` file that run the containers on a network called `tt-network`. It allows the communication between the projects, even though they have their own docker-compose files.
+These two projects have a `docker-compose.yml` file that runs the containers on a network called `tt-network`. It allows the communication between the projects, even though they have their own docker-compose files.
 
 So, please know that you'll need the two projects up and running to be able to test the entirety of this application.
 
