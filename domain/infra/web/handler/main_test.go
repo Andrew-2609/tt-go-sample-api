@@ -20,7 +20,7 @@ func setupRouter(t *testing.T, ctx context.Context) {
 	apiConfig, err := config.NewLocalConfig("../../../../.env.test").LoadConfig(ctx)
 	require.NoError(t, err)
 
-	webServer := server.NewApp(apiConfig.WebServerPort)
+	webServer := server.NewApp(apiConfig)
 
 	fiberApp, ok := webServer.Engine.(*fiber.App)
 

@@ -19,6 +19,7 @@ type APIConfig struct {
 	DBPort        string `json:"DB_PORT" mapstructure:"DB_PORT"`
 	AWSRegion     string `json:"AWS_REGION" mapstructure:"AWS_REGION"`
 	AWSEndpoint   string `json:"AWS_ENDPOINT" mapstructure:"AWS_ENDPOINT"`
+	AWSHRQueueURL string `json:"AWS_HR_QUEUE_URL" mapstructure:"AWS_HR_QUEUE_URL"`
 }
 
 // LoadAPIConfigBasedOnEnvironment will load the application's

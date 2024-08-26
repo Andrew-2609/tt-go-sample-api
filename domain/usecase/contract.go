@@ -20,3 +20,11 @@ type RegisterEmployeeUseCaseInterface interface {
 	// DTO.
 	Execute(ctx context.Context, input dto.RegisterEmployeeInputDTO) (dto.RegisterEmployeeOutputDTO, error)
 }
+
+// RequireEmployeeFromHRUseCaseInterface is responsible
+// for requiring employees from the HR team.
+type RequireEmployeeFromHRUseCaseInterface interface {
+	// Execute tries to require an employee based on an input
+	// DTO.
+	Execute(ctx context.Context, input dto.RequireEmployeeFromHRInputDTO) (dto.RequireEmployeeFromHROutputDTO, error)
+}

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"tt-go-sample-api/config"
+	"tt-go-sample-api/external/aws/sqs"
 	"tt-go-sample-api/external/rdb"
 	"tt-go-sample-api/external/rdb/postgresql"
 	db "tt-go-sample-api/external/rdb/sqlc"
@@ -23,7 +24,8 @@ func main() {
 
 	logger.APILoggerSingleton = logger.NewWithLogrus("tt-go-sample-api")
 
-	app := server.NewApp(config.WebServerPort)
+	app := server.NewApp(config)
+	setupAWSSQS(mainCtx, config)
 
 	go app.Start(mainCtx)
 
@@ -104,4 +106,20 @@ func setupRelationalDatabaseConnection(ctx context.Context, config *config.APICo
 	}
 
 	return store
+}
+
+// setupAWSSQS sets up the application's AWS SQS connection.
+func setupAWSSQS(ctx context.Context, config *config.APIConfig) {
+	apiSQS := sqs.GetAPISQSSingletonSingleton()
+
+	if err := apiSQS.Connect(ctx, config); err != nil {
+		logger.APILoggerSingleton.Fatal(ctx, logger.LogInput{
+			Message: "Could not establish connection to AWS SQS",
+			Data:    map[string]any{"error": fmt.Sprintf("%v", err)},
+		})
+	}
+
+	logger.APILoggerSingleton.Info(ctx, logger.LogInput{
+		Message: "SQS connection successfully established",
+	})
 }
