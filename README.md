@@ -53,7 +53,7 @@ So you'll notice that I simply called the methods to create the dependencies for
 
 ## Cloud Environment Variables
 
-I wanted to use [AWS Secrets Manager](https://aws.amazon.com/pt/secrets-manager) on [localstack](https://github.com/localstack/localstack) to enable the environment variables loading simulating a Cloud environment. I've used localstack to simulate SQS queues, SNS topics, S3 buckets, DynamoDB tables, etc., but never to load secrets from a Secrets Manager, so it would take me some precious time to both learn it and implemented on the last weekend.
+I wanted to use [AWS Secrets Manager](https://aws.amazon.com/pt/secrets-manager) on [localstack](https://github.com/localstack/localstack) to enable the environment variables loading simulating a Cloud environment. I've used localstack to simulate SQS queues, SNS topics, S3 buckets, DynamoDB tables, etc., but never to load secrets from a Secrets Manager, so it would take me some precious time to both learn it and implement it on the last weekend.
 
 ## SonarQube
 
