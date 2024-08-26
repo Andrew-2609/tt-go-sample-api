@@ -1,6 +1,9 @@
 # Running
 
 run:
+	docker compose up -d --remove-orphans && docker logs -f tt-go-sample-api
+
+run-build:
 	docker compose up --build -d --remove-orphans && docker logs -f tt-go-sample-api
 
 .PHONY: run
