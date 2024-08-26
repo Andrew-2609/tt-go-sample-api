@@ -2,7 +2,7 @@
 
 ## Overall Idea and Explanations
 
-This project was built to give a general idea of the concepts I've learnt with GoLang. Although the overall idea is kinda silly (especially an SQS queue to "require" employees from the HR team), what matters most is the project architecture and scalability.
+This project was built to give a general idea of the concepts I've learnt with GoLang. Although the overall idea is kinda silly (especially an SQS queue to "require" employees from the HR team, this doesn't even make too much sense lol), what matters most is the project architecture and scalability.
 
 I've implemented unit and integration tests that cover most of the API, except the module I implemented last night (2024-08-26), because it was almost 11PM and my wife was almost sleeping and wouldn't allow me to work any further 😅.
 
