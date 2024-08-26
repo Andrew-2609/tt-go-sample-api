@@ -6,6 +6,14 @@ This project was built to give a general idea of the concepts I've learnt with G
 
 I've implemented unit and integration tests that cover most of the API, except the module I implemented last night (2024-08-26), because it was almost 11PM and my wife was almost sleeping and wouldn't allow me to work any further 😅.
 
+# 🧢 TT TypeScript Sample API
+
+This project is **directly related** to the [TT TypeScript Sample API](https://github.com/Andrew-2609/tt-ts-sample-api), mainly because of the AWS SQS queue that they share.
+
+These two projects have a `docker-compose.yml` file that run the containers on a network called `tt-network`. It allows the communication between the projects, even though they have their own docker-compose files.
+
+So, please know that you'll need the two projects up and running to be able to test the entirety of this application.
+
 # 🥷 API
 
 This project is an API for registering and listing employees. Yes, it's that simple, and it only has four routes (including the `GET /health` that may be used for a Kubernetes health check, for example). But the way was paved to extend the application's routes easily and rapidly, and the fact that there's a whole testing structure would facilitate and foster the development of unit and integration tests for whatever new route that may be implemented.
@@ -60,3 +68,15 @@ I wanted to use [AWS Secrets Manager](https://aws.amazon.com/pt/secrets-manager)
 I wanted to implement a conteinerized SonarQube for this API, but I had a hard time configuring this bloody thing locally many times, so I didn't have the patience nor the time to try to implement it during this weekend.
 
 Just know that it was a nice goal to achieve, and that in a real world project there would be at least a `sonar-project.properties` file to enable SonarQube to capture coverage data during a pipeline, for example.
+
+## Swagger + OpenAPI
+
+I wanted to elaborate a proper documentation for this project, but I simply didn't have the time 😞.
+
+# 📝 Ending Note
+
+Thanks for reading so far. I implemented this project and the another one in less then two days (from 2024-08-24 to 2024-08-25), plus today to elaborate the documentations and make the final adjustments, so I hope you take that in consideration if you don't think this project is polished enough 🙏.
+
+Plus, I didn't use any translation tool to elaborate this documentation, so you can get an idea of my **written English** ability just by reading this document (and this also justifies any mistakes I'm sure I made 😆).
+
+Again, thank you very very much for analysing this project. I really really hope it make a difference in any selection process you're currently responsible for!
